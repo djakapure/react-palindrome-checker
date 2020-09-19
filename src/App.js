@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import isPalindrome from './utils/PalindromeCheck';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      enterString: [],
+      message: "",
+      color: ""
+    }
+  }
+  onSubmitHandle = () => {
+    isPalindrome(this.state.enterString) ? this.setState({message : "This is Palindrome", color:"text-green" }) : this.setState({message : "This is not Palindrome", color:"text-red"})
+  }
+
+  onChangeHandle = (e) => {
+    this.setState({
+      enterString:e.target.value
+    })
+  }
+  
+  render(){
+    return(
+      <div>
+        <input type="text" className="enterName" onChange={this.onChangeHandle}/>
+        <button onClick={this.onSubmitHandle}>Check</button>
+    <h1 className={this.state.color}>{this.state.message}</h1>
+      </div>
+    );
+  }
 }
 
 export default App;
